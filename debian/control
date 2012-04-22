@@ -1,0 +1,15 @@
+Source: easy2
+Section: admin
+Priority: extra
+Maintainer: Martin Häger <martin.hager@minmb.se>
+Build-Depends: debhelper (>= 7.0.50~)
+Standards-Version: 3.8.4
+Homepage: http://github.com/minmb/easy2
+Vcs-Git: git://github.com/minmb/easy2.git
+
+Package: easy2
+Architecture: all
+Depends: ${misc:Depends}
+Description: EC2 deployment support package
+ This package contains configuration files 
+ and supporting scripts for EC2 deployment.

@@ -1,0 +1,45 @@
+#!/bin/bash
+#! /bin/sh
+### BEGIN INIT INFO
+# Provides:          easy2
+# Required-Start:    $local_fs $remote_fs $syslog
+# Required-Stop:     $local_fs $remote_fs $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: easy2 init script
+# Description:       Runs scripts in /etc/easy/{start,stop}.d
+### END INIT INFO
+
+function run_script() {
+  local script
+
+  script=$1
+  
+  cat << SCRIPT | /bin/bash
+    source /etc/default/easy2
+    source /etc/easy2/common.sh
+    source $script
+SCRIPT
+}
+
+case "$1" in
+  start)
+    for script in /etc/easy2/start.d/*; do
+      run_script $script
+    done
+    ;;
+  
+  stop)
+    for script in /etc/easy2/stop.d/*; do
+      run_script $script
+    done
+    ;;
+  
+  restart|force-reload)
+    ;;
+
+  status)
+    ;;
+  
+  *)
+esac

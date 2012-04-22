@@ -1,0 +1,9 @@
+/debian/*
+!/debian/changelog
+!/debian/compat
+!/debian/control
+!/debian/copyright
+!/debian/docs
+!/debian/rules
+!/debian/source
+!/debian/*.init

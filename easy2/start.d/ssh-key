@@ -1,0 +1,22 @@
+#!/bin/bash
+
+SSH_DIR=/home/$EC2_USER/.ssh
+AUTHORIZED_KEYS=$SSH_DIR/authorized_keys
+PUBLIC_KEY=$(easy2-instance-meta "public-keys/0/openssh-key") > /dev/null
+
+if [ $? -eq 0 ]; then
+
+  if ! grep -s -q "$PUBLIC_KEY" $AUTHORIZED_KEYS; then
+    mkdir -p -m 0700 /home/$EC2_USER/.ssh
+
+    echo "$PUBLIC_KEY" >> $AUTHORIZED_KEYS
+    chmod 0600 $AUTHORIZED_KEYS
+
+    chown -R $EC2_USER:$EC2_GROUP $SSH_DIR
+
+    easy2-info "appended public key to $SSH_DIR/authorized_keys"
+  fi
+
+else
+  easy2-error "could not fetch public key"
+fi
