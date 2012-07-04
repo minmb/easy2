@@ -1,22 +1,52 @@
 #!/bin/bash
 
-SSH_DIR=/home/$EC2_USER/.ssh
-AUTHORIZED_KEYS=$SSH_DIR/authorized_keys
-PUBLIC_KEY=$(easy2-instance-meta "public-keys/0/openssh-key") > /dev/null
+# -*- mode: bash; tab-width: 4; indent-tabs-mode: nil -*-
 
-if [ $? -eq 0 ]; then
+function easy2-authorize-ssh-key() {
 
-  if ! grep -s -q "$PUBLIC_KEY" $AUTHORIZED_KEYS; then
-    mkdir -p -m 0700 /home/$EC2_USER/.ssh
+    local user="$1"
+    local ssh_key="$2"
 
-    echo "$PUBLIC_KEY" >> $AUTHORIZED_KEYS
-    chmod 0600 $AUTHORIZED_KEYS
+    local ssh_dir="$(eval echo ~$user)/.ssh"
+    local authorized_keys="$ssh_dir/authorized_keys"
 
-    chown -R $EC2_USER:$EC2_GROUP $SSH_DIR
+    if ! grep -s -q "$ssh_key" "$authorized_keys"; then
+        mkdir -p -m 0700 "$ssh_dir"
 
-    easy2-info "appended public key to $SSH_DIR/authorized_keys"
-  fi
+        echo "$ssh_key" >> "$authorized_keys"
+        chmod 0600 "$authorized_keys"
 
-else
-  easy2-error "could not fetch public key"
-fi
+        chown -R "$user":"$(id -gn $user)" "$ssh_dir"
+
+        easy2-info "appended public key to $authorized_keys"
+    fi
+
+}
+
+function easy2-ssh-key() {
+
+    local ssh_users="$1"
+
+    local ssh_key="$(easy2-instance-meta public-keys/0/openssh-key 2> /dev/null)" 
+
+    if [ $? -ne 0 ]; then
+        easy2-error "could not fetch public key"
+        return 1
+    fi
+
+    for user in $ssh_users; do
+
+        id "$user" > /dev/null 2>&1
+
+        if [ $? -ne 0 ]; then
+            easy2-error "user $user does not exist, skipping"
+            continue
+        fi
+
+        easy2-authorize-ssh-key "$user" "$ssh_key"
+
+    done
+
+}
+
+easy2-ssh-key "$SSH_USERS"
