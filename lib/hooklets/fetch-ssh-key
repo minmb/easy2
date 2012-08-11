@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# -*- mode: bash; tab-width: 4; indent-tabs-mode: nil -*-
-
 function easy2-authorize-ssh-key() {
 
     local user="$1"
@@ -23,7 +21,7 @@ function easy2-authorize-ssh-key() {
 
 }
 
-function easy2-ssh-key() {
+function easy2-fetch-ssh-key() {
 
     local ssh_users="$1"
 
@@ -49,4 +47,6 @@ function easy2-ssh-key() {
 
 }
 
-easy2-ssh-key "$SSH_USERS"
+easy2-fetch-ssh-key "$SSH_USERS"
+
+# -*- mode: bash; tab-width: 4; indent-tabs-mode: nil -*-

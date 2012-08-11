@@ -7,3 +7,5 @@
 !/debian/rules
 !/debian/source
 !/debian/*.init
+!/debian/*.postrm
+!/debian/*.postinst

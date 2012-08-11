@@ -1,0 +1,11 @@
+#!/bin/bash
+
+function easy2-info() {
+    logger -t easy2 -p syslog.info $1
+}
+
+function easy2-error() {
+    logger -t easy2 -p syslog.error $1
+}
+
+# -*- mode: bash; tab-width: 4; indent-tabs-mode: nil -*-

@@ -1,5 +1,4 @@
 #!/bin/bash
-#! /bin/sh
 ### BEGIN INIT INFO
 # Provides:          easy2
 # Required-Start:    $local_fs $remote_fs $syslog
@@ -7,32 +6,36 @@
 # Default-Start:     2 3 4 5
 # Default-Stop:      0 1 6
 # Short-Description: easy2 init script
-# Description:       Runs scripts in /etc/easy/{start,stop}.d
+# Description:       Runs hooklets in /etc/easy2/{start,stop}.d
 ### END INIT INFO
 
-function run_script() {
-  local script
+EASY2_LIB=/usr/lib/easy2
+EASY2_ETC=/etc/easy2
+EASY2_DEFAULT=/etc/default/easy2
 
-  script=$1
+function run_hooklet() {
+  local hooklet
+
+  hooklet=$1
   
-  cat << SCRIPT | /bin/bash
-    source /etc/default/easy2
-    source /etc/easy2/common.sh
-    source $script
-SCRIPT
+  cat << WRAPPER | /bin/bash
+    source $EASY2_DEFAULT     
+    source $EASY2_LIB/common/*
+    source $hooklet
+WRAPPER
 }
 
 case "$1" in
   start)
-    for script in /etc/easy2/start.d/*; do
-      run_script $script
-    done
+    for hooklet in $EASY2_ETC/start.d/*; do
+      run_hooklet $hooklet
+    done 2>/dev/null
     ;;
   
   stop)
-    for script in /etc/easy2/stop.d/*; do
-      run_script $script
-    done
+    for hooklet in $EASY2_ETC/stop.d/*; do
+      run_hooklet $hooklet
+    done 2>/dev/null
     ;;
   
   restart|force-reload)
@@ -43,3 +46,5 @@ case "$1" in
   
   *)
 esac
+
+# -*- mode: bash; tab-width: 4; indent-tabs-mode: nil -*-

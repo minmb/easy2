@@ -1,0 +1,9 @@
+#!/bin/bash -e
+
+EASY2_ETC=/etc/easy2
+
+rm -f $EASY2_ETC/start.d/fetch-ssh-key
+
+#DEBHELPER#
+
+# -*- mode: bash; tab-width: 4; indent-tabs-mode: nil -*-

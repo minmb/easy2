@@ -1,0 +1,14 @@
+#!/bin/bash -e
+
+EASY2_ETC=/etc/easy2
+EASY2_LIB=/usr/lib/easy2
+
+function easy2-install-hooklet() {
+    ln -sf $EASY2_LIB/hooklets/$1 $EASY2_ETC/$2.d/
+}
+
+easy2-install-hooklet fetch-ssh-key start
+
+#DEBHELPER#
+
+# -*- mode: bash; tab-width: 4; indent-tabs-mode: nil -*-

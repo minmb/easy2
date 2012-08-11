@@ -1,5 +1,4 @@
 #!/usr/bin/make -f
-# -*- makefile -*-
 
 clean:
 	dh_clean
@@ -29,3 +28,5 @@ binary-indep: install
 	dh_gencontrol
 	dh_md5sums
 	dh_builddeb
+
+# -*- mode: makefile; tab-width: 4; indent-tabs-mode: t -*-

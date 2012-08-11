@@ -1,3 +1,9 @@
+easy2 (1.0.2-1) unstable; urgency=low
+
+  * New release
+
+ -- Martin Häger <martin.hager@minmb.se>  Sat, 11 Aug 2012 18:24:10 +0200
+
 easy2 (1.0.1-1) unstable; urgency=low
 
   * ssh-key: refactoring and support for multiple users
