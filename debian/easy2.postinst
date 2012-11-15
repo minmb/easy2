@@ -1,4 +1,5 @@
 #!/bin/bash -e
+# -*- mode: bash; tab-width: 4; indent-tabs-mode: nil -*-
 
 EASY2_ETC=/etc/easy2
 EASY2_LIB=/usr/lib/easy2
@@ -10,5 +11,3 @@ function easy2-install-hooklet() {
 easy2-install-hooklet fetch-ssh-key start
 
 #DEBHELPER#
-
-# -*- mode: bash; tab-width: 4; indent-tabs-mode: nil -*-

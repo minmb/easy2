@@ -1,3 +1,5 @@
+# -*- mode: makefile; tab-width: 4; indent-tabs-mode: t -*-
+
 install:
 	mkdir -p $(DESTDIR)/usr/lib
 	cp -pr lib $(DESTDIR)/usr/lib/easy2
@@ -9,5 +11,3 @@ install:
 	mkdir -p $(DESTDIR)/etc/easy2/stop.d
 
 .PHONY: install
-
-# -*- mode: makefile; tab-width: 4; indent-tabs-mode: t -*-

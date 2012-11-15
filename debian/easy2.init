@@ -1,4 +1,6 @@
 #!/bin/bash
+# -*- mode: bash; tab-width: 4; indent-tabs-mode: nil -*-
+
 ### BEGIN INIT INFO
 # Provides:          easy2
 # Required-Start:    $local_fs $remote_fs $syslog
@@ -46,5 +48,3 @@ case "$1" in
   
   *)
 esac
-
-# -*- mode: bash; tab-width: 4; indent-tabs-mode: nil -*-
