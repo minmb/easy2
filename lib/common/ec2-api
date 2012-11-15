@@ -7,7 +7,7 @@ function easy2-instance-meta() {
     local key value
 
     key=$1
-    wget --timeout=0 -qO- $EC2_META_API_ENDPOINT/$key 2>/dev/null
+    wget -qO- $EC2_META_API_ENDPOINT/$key 2>/dev/null
 
     return $?
 }
